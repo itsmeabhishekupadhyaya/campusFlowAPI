@@ -2,14 +2,41 @@
 
 Backend services for the CampusFlow ERP platform.
 
-## Architecture
+---
+
+## Technology Stack
 
 - ASP.NET Core Web API
-- API First
-- Microservices
-- PostgreSQL
+- .NET 10
 - Entity Framework Core
+- PostgreSQL
+- REST API
+- OpenAPI (Swagger)
 
-## Services
+---
 
-- Student Service (In Progress)
+## Architecture
+
+This repository follows an API-First and Microservices architecture.
+
+Current Services:
+
+- CampusFlow.StudentService (In Progress)
+
+---
+
+## Branch Strategy
+
+- main
+- develop
+- feature/*
+
+---
+
+## Development Standards
+
+- API Contract First
+- Repository Pattern
+- Dependency Injection
+- SOLID Principles
+- Feature-Based Development
