@@ -16,7 +16,7 @@
 
   <ItemGroup>
     <Folder Include="Configuration\" />
-    <Folder Include="Contracts\" />
+    <Folder Include="Contracts\Responses\Student\" />
     <Folder Include="Controllers\" />
     <Folder Include="Extensions\" />
     <Folder Include="Middleware\" />
