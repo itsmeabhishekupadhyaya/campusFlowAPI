@@ -1,10 +1,16 @@
-using CampusFlow.StudentService.API.Contracts.Requests.Student;
-using CampusFlow.StudentService.API.Contracts.Responses.Student;
 
-namespace CampusFlow.StudentService.API.Repositories.Student
-{
+using CampusFlow.StudentService.API.Domain.Entities;
+namespace CampusFlow.StudentService.API.Repositories;
+
     public interface IStudentRepository
     {
-        StudentListResponse GetStudents(GetStudentsRequest request);
-    }
+        Task<Student> AddAsync(Student student);
+
+        //Task<ICollection<Student>> GetStudentsAsync();
+
+        Task SaveChangesAsync();
+
 }
+
+
+

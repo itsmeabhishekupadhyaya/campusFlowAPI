@@ -1,6 +1,7 @@
+using CampusFlow.StudentService.API.Domain.Enums;
 using System.ComponentModel.DataAnnotations;
 
-namespace CampusFlow.StudentService.API.Contracts.Requests.Student;
+namespace CampusFlow.StudentService.API.Contracts.Requests;
 
 public class CreateStudentRequest
 {
@@ -29,7 +30,7 @@ public class CreateStudentRequest
     public DateOnly DateOfBirth { get; set; }
 
     [Required]
-    public string Gender { get; set; } = string.Empty;
+    public GenderType Gender { get; set; } 
 
     [MaxLength(500)]
     public string? Address { get; set; }
