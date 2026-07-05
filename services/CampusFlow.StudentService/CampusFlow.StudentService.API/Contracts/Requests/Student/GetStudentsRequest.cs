@@ -1,3 +1,5 @@
+using CampusFlow.StudentService.API.Contracts.Common.Enums;
+
 namespace CampusFlow.StudentService.API.Contracts.Requests.Student
 {
     public class GetStudentsRequest
@@ -6,6 +8,6 @@ namespace CampusFlow.StudentService.API.Contracts.Requests.Student
         public int PageSize { get; set; } = 10;
         public string? Search { get; set; }
         public string SortBy { get; set; } = "FirstName";
-        public string SortOrder { get; set; } = "Asc";
+        public SortDirection SortDirection { get; set; } = SortDirection.Ascending;
     }
 }

@@ -54,4 +54,63 @@ public class StudentService : IStudentService
     //    await _studentRepository.GetStudentsAsync(request);
     //}
 }
+
+    public async Task<StudentResponse?> GetStudentByIdAsync(Guid Id)
+    {
+
+        var student = await _studentRepository.GetStudentByIdAsync(Id);
+        if(student is null)
+        {
+            return null;
+        }
+        return new StudentResponse
+        {
+            Id = student.Id,
+            FirstName = student.FirstName,
+            LastName = student.LastName,
+            Email = student.Email,
+            DateOfBirth = student.DateOfBirth,
+            MobileNumber = student.MobileNumber,
+            Gender = student.Gender,
+            Address = student.Address,
+            ClassId = student.ClassId
+        };
+       
+    }
+
+  
+
+    public async Task<StudentListResponse> GetStudentsAsync(GetStudentsRequest request)
+    {
+        var students = await _studentRepository.GetStudentsAsync(request.Page,request.PageSize,request.Search,
+             request.SortBy, request.SortDirection);
+
+        var totalRecords = await _studentRepository.CountAsync(request.Search);
+        var items =  students.Select(student => new StudentResponse
+        {
+            Id = student.Id,
+            FirstName = student.FirstName,
+            LastName = student.LastName,
+            Email = student.Email,
+            MobileNumber = student.MobileNumber,
+            DateOfBirth = student.DateOfBirth,
+            Gender = student.Gender,
+            ClassId = student.ClassId,
+            Address = student.Address,
+        }).ToList();
+
+        var totalPages = (int)Math.Ceiling(
+    (double)totalRecords / request.PageSize);
+
+        return new StudentListResponse
+        {
+            Items = items,
+            
+            TotalRecords = totalRecords,
+            TotalPages = totalPages,
+            Page = request.Page,
+            PageSize = request.PageSize
+        };
+
+    }
 }

@@ -8,6 +8,7 @@ namespace CampusFlow.StudentService.API.Services;
     public interface IStudentService
     {
       Task<CreateStudentResponse> CreateStudentAsync(CreateStudentRequest request);
-      //Task<ICollection<StudentResponse>> GetStudentsAsync(GetStudentsRequest request);
+      Task<StudentListResponse> GetStudentsAsync(GetStudentsRequest request);
+    Task<StudentResponse?> GetStudentByIdAsync(Guid Id);
 }
 

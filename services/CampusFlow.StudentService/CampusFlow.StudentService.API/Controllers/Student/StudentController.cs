@@ -1,4 +1,5 @@
 using CampusFlow.StudentService.API.Contracts.Requests;
+using CampusFlow.StudentService.API.Contracts.Requests.Student;
 using CampusFlow.StudentService.API.Contracts.Responses;
 using CampusFlow.StudentService.API.Contracts.Responses.Student;
 using CampusFlow.StudentService.API.Services;
@@ -24,10 +25,18 @@ namespace CampusFlow.StudentService.API.Controllers.Student;
         return CreatedAtAction(nameof(GetStudentById), new { id = response.ID }, response);
     }
 
-    [HttpGet("{id:guid}")]
-    public IActionResult GetStudentById(Guid id)
+    [HttpGet]
+    public async Task<IActionResult> GetStudents([FromQuery] GetStudentsRequest request)
     {
-        return Ok();
+        var response = await _studentService.GetStudentsAsync(request);
+        return Ok(response);
+    }
+
+    [HttpGet("{id:guid}")]
+    public async Task<IActionResult> GetStudentById(Guid id)
+    {
+        var student = await _studentService.GetStudentByIdAsync(id);
+        return Ok(student);
     }
 }
 

@@ -1,3 +1,5 @@
+using CampusFlow.StudentService.API.Domain.Enums;
+
 namespace CampusFlow.StudentService.API.Contracts.Responses.Student;
 
 public class StudentResponse
@@ -16,7 +18,7 @@ public class StudentResponse
 
     public string ClassName { get; set; } = string.Empty;
 
-    public string Gender { get; set; } = string.Empty;
+    public GenderType Gender { get; set; }
 
     public DateOnly DateOfBirth { get; set; }
 
