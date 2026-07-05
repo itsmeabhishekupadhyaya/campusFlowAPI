@@ -1,3 +1,5 @@
+using CampusFlow.StudentService.API.Services.Student;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -8,6 +10,8 @@ builder.Services.AddOpenApi();
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddScoped<IStudentService, StudentService>();
 
 var app = builder.Build();
 
