@@ -17,7 +17,7 @@ public class StudentService : IStudentService
         _studentRepository = studentRepository;
     }
 
-    public async Task CreateStudentAsync(CreateStudentRequest request)
+    public async Task<CreateStudentResponse> CreateStudentAsync(CreateStudentRequest request)
     {
         var student = new Student
         {
@@ -34,11 +34,24 @@ public class StudentService : IStudentService
         await _studentRepository.AddAsync(student);
 
         await _studentRepository.SaveChangesAsync();
-    }
+        return new CreateStudentResponse
+        {
+            ID = student.Id,
+            FirstName = student.FirstName,
+            LastName = student.LastName,
+            Email = student.Email,
+            MobileNumber = student.MobileNumber,
+            DateOfBirth = student.DateOfBirth,
+            Gender = student.Gender,
+            Address = student.Address,
+            ClassId = student.ClassId
+
+        };
 
     //public async Task<ICollection<StudentResponse>> GetStudentsAsync(GetStudentsRequest request)
     //{
     //    var 
     //    await _studentRepository.GetStudentsAsync(request);
     //}
+}
 }
