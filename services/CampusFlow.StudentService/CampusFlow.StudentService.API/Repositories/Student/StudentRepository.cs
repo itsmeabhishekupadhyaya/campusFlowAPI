@@ -14,13 +14,16 @@ namespace CampusFlow.StudentService.API.Repositories;
     }
     public async Task<Student> AddAsync(Student student)
         {
-        await _DbContext.Students.AddAsync(student);
+        await _DbContext.Students
+                    .AddAsync(student);
         return student;
     }
 
     public async Task<int> CountAsync(string? search)
     {
-        IQueryable<Student> query = _DbContext.Students.AsNoTracking();
+        IQueryable<Student> query = _DbContext.Students
+            .Include(student => student.Class)
+            .AsNoTracking();
 
         if(!string.IsNullOrEmpty(search))
         {
@@ -32,13 +35,16 @@ namespace CampusFlow.StudentService.API.Repositories;
     public async Task<Student?> GetStudentByIdAsync(Guid id)
     {
         return await _DbContext.Students
+            .Include(student => student.Class)
             .AsNoTracking()
             .FirstOrDefaultAsync(s => s.Id == id);
     }
 
     public async Task<IReadOnlyList<Student>> GetStudentsAsync(int page, int Pagesize, string? search, string sortBy, SortDirection sortDirection)
     {
-        IQueryable<Student> query = _DbContext.Students.AsNoTracking();
+        IQueryable<Student> query = _DbContext.Students
+                                    .Include(student => student.Class)
+                                    .AsNoTracking();
 
         if(!string.IsNullOrEmpty(search))
         {

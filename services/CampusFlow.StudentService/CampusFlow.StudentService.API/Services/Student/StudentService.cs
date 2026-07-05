@@ -1,3 +1,4 @@
+using CampusFlow.StudentService.API.Contracts.Common;
 using CampusFlow.StudentService.API.Contracts.Requests;
 using CampusFlow.StudentService.API.Contracts.Requests.Student;
 using CampusFlow.StudentService.API.Contracts.Responses.Student;
@@ -46,13 +47,8 @@ public class StudentService : IStudentService
             Address = student.Address,
             ClassId = student.ClassId
 
-        };
 
-    //public async Task<ICollection<StudentResponse>> GetStudentsAsync(GetStudentsRequest request)
-    //{
-    //    var 
-    //    await _studentRepository.GetStudentsAsync(request);
-    //}
+        };
 }
 
     public async Task<StudentResponse?> GetStudentByIdAsync(Guid Id)
@@ -73,7 +69,9 @@ public class StudentService : IStudentService
             MobileNumber = student.MobileNumber,
             Gender = student.Gender,
             Address = student.Address,
-            ClassId = student.ClassId
+            ClassId = student.ClassId,
+            ClassName = student.Class?.Name ?? string.Empty,
+            IsActive = !student.IsDeleted 
         };
        
     }
@@ -86,7 +84,7 @@ public class StudentService : IStudentService
              request.SortBy, request.SortDirection);
 
         var totalRecords = await _studentRepository.CountAsync(request.Search);
-        var items =  students.Select(student => new StudentResponse
+        var items = students.Select(student => new StudentResponse
         {
             Id = student.Id,
             FirstName = student.FirstName,
@@ -97,6 +95,8 @@ public class StudentService : IStudentService
             Gender = student.Gender,
             ClassId = student.ClassId,
             Address = student.Address,
+            ClassName = student.Class?.Name ?? string.Empty,
+            IsActive = !student.IsDeleted 
         }).ToList();
 
         var totalPages = (int)Math.Ceiling(
