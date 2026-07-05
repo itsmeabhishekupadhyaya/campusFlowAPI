@@ -1,6 +1,6 @@
 using CampusFlow.StudentService.API.Persistence;
-using CampusFlow.StudentService.API.Repositories.Student;
-using CampusFlow.StudentService.API.Services.Student;
+using CampusFlow.StudentService.API.Repositories;
+using CampusFlow.StudentService.API.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

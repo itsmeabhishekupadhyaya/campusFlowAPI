@@ -3,6 +3,7 @@ using System;
 using CampusFlow.StudentService.API.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CampusFlow.StudentService.API.Migrations
 {
     [DbContext(typeof(CampusFlowDbContext))]
-    partial class CampusFlowDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260705081223_SeedClasses")]
+    partial class SeedClasses
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
