@@ -36,6 +36,10 @@ namespace CampusFlow.StudentService.API.Controllers.Student;
     public async Task<IActionResult> GetStudentById(Guid id)
     {
         var student = await _studentService.GetStudentByIdAsync(id);
+        if(student == null)
+        {
+            return NotFound();
+        }
         return Ok(student);
     }
 }
