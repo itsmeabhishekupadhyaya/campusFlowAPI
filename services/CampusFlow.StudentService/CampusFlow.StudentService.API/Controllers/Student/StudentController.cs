@@ -20,9 +20,15 @@ namespace CampusFlow.StudentService.API.Controllers.Student;
     [HttpPost]
     public async Task<IActionResult> CreateStudent(CreateStudentRequest request)
     {
-        await _studentService.CreateStudentAsync(request);
+      var response =  await _studentService.CreateStudentAsync(request);
+        return CreatedAtAction(nameof(GetStudentById), new { id = response.ID }, response);
+    }
+
+    [HttpGet("{id:guid}")]
+    public IActionResult GetStudentById(Guid id)
+    {
         return Ok();
     }
- }
+}
 
 
