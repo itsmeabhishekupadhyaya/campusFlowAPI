@@ -1,5 +1,7 @@
+using CampusFlow.StudentService.API.Persistence;
 using CampusFlow.StudentService.API.Repositories.Student;
 using CampusFlow.StudentService.API.Services.Student;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,9 +13,17 @@ builder.Services.AddOpenApi();
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen();
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
+    ?? throw new InvalidOperationException(
+        "Database connection string 'DefaultConnection' was not found.");
+
+builder.Services.AddDbContext<CampusFlowDbContext>(options =>
+
+options.UseNpgsql(connectionString));
 
 builder.Services.AddScoped<IStudentService, StudentService>();
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
+
 
 var app = builder.Build();
 
