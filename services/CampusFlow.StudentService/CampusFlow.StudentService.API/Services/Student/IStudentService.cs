@@ -11,5 +11,7 @@ namespace CampusFlow.StudentService.API.Services;
         Task<StudentListResponse> GetStudentsAsync(GetStudentsRequest request);
         Task<StudentResponse?> GetStudentByIdAsync(Guid Id);
         Task<StudentResponse?> UpdateStudentAsync(UpdateStudentRequest request, Guid Id);
+
+        Task<bool> DeleteStudentAsync(Guid Id);
     }
 

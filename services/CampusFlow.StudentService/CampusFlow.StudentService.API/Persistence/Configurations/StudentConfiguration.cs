@@ -35,6 +35,8 @@ namespace CampusFlow.StudentService.API.Persistence.Configurations
                 .WithMany(c => c.students)
                 .HasForeignKey(x => x.ClassId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasQueryFilter(x => !x.IsDeleted);
         }
 
     }

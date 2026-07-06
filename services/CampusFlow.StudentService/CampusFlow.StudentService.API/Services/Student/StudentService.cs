@@ -41,6 +41,8 @@ public class StudentService : IStudentService
         return StudentMapper.ToCreateStudentResponse(student);
     }
 
+    
+
     public async Task<StudentResponse?> GetStudentByIdAsync(Guid Id)
     {
 
@@ -79,9 +81,9 @@ public class StudentService : IStudentService
 
     }
 
-    public async Task<StudentResponse?> UpdateStudentAsync(UpdateStudentRequest request, Guid Id)
+    public async Task<StudentResponse?> UpdateStudentAsync(UpdateStudentRequest request, Guid id)
     {
-       var student = await _studentRepository.GetForUpdateAsync(Id);
+       var student = await _studentRepository.GetForUpdateAsync(id);
         if (student is null)
         {
             return null;
@@ -94,9 +96,25 @@ public class StudentService : IStudentService
         student.Address = request.Address;
         student.ClassId = request.ClassId;
         student.Email = request.Email;
+        student.UpdatedOn = DateTime.UtcNow;
 
         await _studentRepository.SaveChangesAsync();
-        var updatedStudent = await _studentRepository.GetStudentByIdAsync(Id);
+        var updatedStudent = await _studentRepository.GetStudentByIdAsync(id);
         return StudentMapper.ToStudentResponse(updatedStudent);
+    }
+
+    public async Task<bool> DeleteStudentAsync(Guid id)
+    {
+        var student = await _studentRepository.GetForUpdateAsync(id);
+        if (student == null || student.IsDeleted)
+        { 
+            return false;
+        }
+        student.IsDeleted = true;
+        student.UpdatedOn = DateTime.UtcNow;
+        student.DeletedOn = DateTime.UtcNow;
+
+        await _studentRepository.SaveChangesAsync();
+        return true;
     }
 }
