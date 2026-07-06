@@ -57,6 +57,21 @@ namespace CampusFlow.StudentService.API.Controllers.Student;
         }
         return Ok(student);
     }
+    /// <summary>
+    /// Update deatils of student.
+    /// </summary>
+    /// <param name="id">Guid.</param>
+    /// <returns>Updated Deatil of Student.</returns>
+    [HttpPut("{id:guid}")]
+    public async Task<ActionResult<StudentResponse>> UpdateStudent(UpdateStudentRequest request,  Guid id)
+    {
+        var student = await _studentService.UpdateStudentAsync(request, id);
+        if (student == null)
+        {
+            return NotFound();
+        }
+        return Ok(student);
+    }
 }
 
 

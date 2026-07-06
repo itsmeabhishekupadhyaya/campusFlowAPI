@@ -78,4 +78,25 @@ public class StudentService : IStudentService
         };
 
     }
+
+    public async Task<StudentResponse?> UpdateStudentAsync(UpdateStudentRequest request, Guid Id)
+    {
+       var student = await _studentRepository.GetForUpdateAsync(Id);
+        if (student is null)
+        {
+            return null;
+        }
+        student.FirstName = request.FirstName;
+        student.LastName = request.LastName;
+        student.DateOfBirth = request.DateOfBirth;
+        student.MobileNumber = request.MobileNumber;
+        student.Gender = request.Gender;
+        student.Address = request.Address;
+        student.ClassId = request.ClassId;
+        student.Email = request.Email;
+
+        await _studentRepository.SaveChangesAsync();
+        var updatedStudent = await _studentRepository.GetStudentByIdAsync(Id);
+        return StudentMapper.ToStudentResponse(updatedStudent);
+    }
 }
