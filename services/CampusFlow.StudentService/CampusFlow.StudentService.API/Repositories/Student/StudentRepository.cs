@@ -68,5 +68,9 @@ namespace CampusFlow.StudentService.API.Repositories;
         return query;
     }
 
+    public async Task<Student?> GetForUpdateAsync(Guid id)
+    {
+        return await _DbContext.Students.FirstOrDefaultAsync(s => s.Id == id);
+    }
 }
 
