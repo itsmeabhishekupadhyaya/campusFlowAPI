@@ -72,6 +72,17 @@ namespace CampusFlow.StudentService.API.Controllers.Student;
         }
         return Ok(student);
     }
+
+    [HttpDelete("{id:guid}")]
+    public async Task<IActionResult> DeleteStudent(Guid id)
+    {
+        var result = await _studentService.DeleteStudentAsync(id);
+        if (!result)
+        {
+            return NotFound();
+        }
+        return NoContent();
+    }
 }
 
 

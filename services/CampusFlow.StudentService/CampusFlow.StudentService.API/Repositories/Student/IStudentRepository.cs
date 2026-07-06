@@ -15,6 +15,7 @@ namespace CampusFlow.StudentService.API.Repositories;
     Task SaveChangesAsync();
 
     Task<Student?> GetForUpdateAsync(Guid id);
+  
 
 }
 
