@@ -96,7 +96,7 @@ public class StudentService : IStudentService
         student.Address = request.Address;
         student.ClassId = request.ClassId;
         student.Email = request.Email;
-        student.UpdatedOn = DateTime.UtcNow;
+        
 
         await _studentRepository.SaveChangesAsync();
         var updatedStudent = await _studentRepository.GetStudentByIdAsync(id);
@@ -111,7 +111,6 @@ public class StudentService : IStudentService
             return false;
         }
         student.IsDeleted = true;
-        student.UpdatedOn = DateTime.UtcNow;
         student.DeletedOn = DateTime.UtcNow;
 
         await _studentRepository.SaveChangesAsync();
