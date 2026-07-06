@@ -18,22 +18,37 @@ namespace CampusFlow.StudentService.API.Controllers.Student;
                 _studentService = studentService;
             }
 
+    /// <summary>
+    /// Post Student in Database.
+    /// </summary>
+    /// <param name="request">Student Details.</param>
+    /// <returns>Created Student Deatils</returns>
     [HttpPost]
-    public async Task<IActionResult> CreateStudent(CreateStudentRequest request)
+    public async Task<ActionResult<CreateStudentResponse>> CreateStudent(CreateStudentRequest request)
     {
       var response =  await _studentService.CreateStudentAsync(request);
         return CreatedAtAction(nameof(GetStudentById), new { id = response.ID }, response);
     }
 
+    /// <summary>
+    /// Retrieves a paginated list of students.
+    /// </summary>
+    /// <param name="request">Search, sorting and pagination parameters.</param>
+    /// <returns>Paginated list of students.</returns>
     [HttpGet]
-    public async Task<IActionResult> GetStudents([FromQuery] GetStudentsRequest request)
+    public async Task<ActionResult<StudentListResponse>> GetStudents([FromQuery] GetStudentsRequest request)
     {
         var response = await _studentService.GetStudentsAsync(request);
         return Ok(response);
     }
 
+    /// <summary>
+    /// Retrieves details of student.
+    /// </summary>
+    /// <param name="id">Guid.</param>
+    /// <returns>Details of Student.</returns>
     [HttpGet("{id:guid}")]
-    public async Task<IActionResult> GetStudentById(Guid id)
+    public async Task<ActionResult<StudentResponse>> GetStudentById(Guid id)
     {
         var student = await _studentService.GetStudentByIdAsync(id);
         if(student == null)

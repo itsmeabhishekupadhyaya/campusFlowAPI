@@ -21,14 +21,7 @@ namespace CampusFlow.StudentService.API.Repositories;
 
     public async Task<int> CountAsync(string? search)
     {
-        IQueryable<Student> query = _DbContext.Students
-            .Include(student => student.Class)
-            .AsNoTracking();
-
-        if(!string.IsNullOrEmpty(search))
-        {
-            query = query.Where(s => s.FirstName.Contains(search) || s.LastName.Contains(search) || s.Email.Contains(search));
-        }
+       var query = BuildStudentQuery(search);
         return await query.CountAsync();
     }
 
@@ -42,14 +35,8 @@ namespace CampusFlow.StudentService.API.Repositories;
 
     public async Task<IReadOnlyList<Student>> GetStudentsAsync(int page, int Pagesize, string? search, string sortBy, SortDirection sortDirection)
     {
-        IQueryable<Student> query = _DbContext.Students
-                                    .Include(student => student.Class)
-                                    .AsNoTracking();
+        var query = BuildStudentQuery(search);
 
-        if(!string.IsNullOrEmpty(search))
-        {
-            query = query.Where(s => s.FirstName.Contains(search) || s.LastName.Contains(search) || s.Email.Contains(search));
-        }
         query = sortDirection == SortDirection.Descending
             ? query.OrderByDescending(student => student.FirstName)
             : query.OrderBy(student => student.FirstName);
@@ -65,6 +52,20 @@ namespace CampusFlow.StudentService.API.Repositories;
     public async Task SaveChangesAsync()
     {
         await _DbContext.SaveChangesAsync();
+    }
+
+    public IQueryable<Student> BuildStudentQuery(string? search)
+    {
+
+        IQueryable<Student> query = _DbContext.Students
+                                   .Include(student => student.Class)
+                                   .AsNoTracking();
+
+        if (!string.IsNullOrEmpty(search))
+        {
+            query = query.Where(s => s.FirstName.Contains(search) || s.LastName.Contains(search) || s.Email.Contains(search));
+        }
+        return query;
     }
 
 }
