@@ -60,10 +60,10 @@ namespace CampusFlow.StudentService.API.Repositories;
         IQueryable<Student> query = _DbContext.Students
                                    .Include(student => student.Class)
                                    .AsNoTracking();
-
+        //Allow to search by first name, last name, or email
         if (!string.IsNullOrEmpty(search))
         {
-            query = query.Where(s => s.FirstName.Contains(search) || s.LastName.Contains(search) || s.Email.Contains(search));
+            query = query.Where(s => s.FirstName.ToLower().Contains(search) || s.LastName.ToLower().Contains(search) || s.Email.ToLower().Contains(search));
         }
         return query;
     }
