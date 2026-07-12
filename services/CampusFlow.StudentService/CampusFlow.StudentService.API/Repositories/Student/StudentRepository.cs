@@ -63,7 +63,7 @@ namespace CampusFlow.StudentService.API.Repositories;
 
         if (!string.IsNullOrEmpty(search))
         {
-            query = query.Where(s => s.FirstName.Contains(search) || s.LastName.Contains(search) || s.Email.Contains(search));
+            query = query.Where(s => s.FirstName.ToLower().Contains(search) || s.LastName.ToLower().Contains(search) || s.Email.ToLower().Contains(search));
         }
         return query;
     }
