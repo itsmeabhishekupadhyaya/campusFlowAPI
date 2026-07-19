@@ -1,4 +1,4 @@
-namespace CampusFlow.StudentService.API.Contracts.Common
+namespace CampusFlow.StudentService.API.Contracts.Constants
 {
     public abstract class StudentStatusConstants
     {
