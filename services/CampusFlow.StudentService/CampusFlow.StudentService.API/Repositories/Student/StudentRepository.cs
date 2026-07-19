@@ -60,8 +60,8 @@ namespace CampusFlow.StudentService.API.Repositories;
                                    .AsNoTracking();
         //Allow to search by first name, last name, or email
         if (!string.IsNullOrEmpty(search))
-        {
-            query = query.Where(s => s.FirstName.ToLower().Contains(search) || s.LastName.ToLower().Contains(search) || s.Email.ToLower().Contains(search));
+        {   search = search.ToLower();
+            query = query.Where(s => s.FirstName.ToLower().Contains(search) || s.LastName.ToLower().Contains(search) || s.Email.ToLower().Contains(search) || s.MobileNumber.Contains(search));
         }
         return query;
     }
