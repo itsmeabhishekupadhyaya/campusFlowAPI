@@ -15,11 +15,11 @@ namespace CampusFlow.StudentService.API.Repositories.Class
         {
             _dbContext = dbContext;
         }
-        public async Task<IReadOnlyList<Domain.Entities.Class>> GetClassesAsync(int page, int Pagesize, string? search, string sortBy, SortDirection sortDirection)
+        public async Task<IReadOnlyList<ClassEntity>> GetClassesAsync(int page, int pageSize, string? search, string sortBy, SortDirection sortDirection)
         {
             var query = BuildClassQuery(search);
             query = ApplySorting(query, sortBy, sortDirection);
-            query = ApplyPaging(query, page, Pagesize);
+            query = ApplyPaging(query, page, pageSize);
 
             return await query.ToListAsync();
             

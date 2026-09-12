@@ -1,9 +1,9 @@
 using CampusFlow.StudentService.API.Contracts.Requests.Class;
-using CampusFlow.StudentService.API.Contracts.Requests.Student;
+
 using CampusFlow.StudentService.API.Contracts.Responses.Class;
-using CampusFlow.StudentService.API.Contracts.Responses.Student;
+
 using CampusFlow.StudentService.API.Services.Class;
-using Microsoft.AspNetCore.Http;
+
 using Microsoft.AspNetCore.Mvc;
 
 namespace CampusFlow.StudentService.API.Controllers.Class
