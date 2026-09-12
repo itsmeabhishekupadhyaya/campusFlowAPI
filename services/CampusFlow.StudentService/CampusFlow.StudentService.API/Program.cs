@@ -1,6 +1,8 @@
 using CampusFlow.StudentService.API.Persistence;
 using CampusFlow.StudentService.API.Repositories;
+using CampusFlow.StudentService.API.Repositories.Class;
 using CampusFlow.StudentService.API.Services;
+using CampusFlow.StudentService.API.Services.Class;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 
@@ -40,7 +42,8 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddScoped<IStudentService, StudentService>();
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
-
+builder.Services.AddScoped<IClassRepository, ClassRepository>();
+builder.Services.AddScoped<IClassService, ClassService>();
 
 var app = builder.Build();
 
